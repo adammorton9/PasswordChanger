@@ -10,14 +10,16 @@ namespace PasswordChanger.Domain
     {
         public int Id { get; }
         public string Username { get; }
-        public string Password { get; }
+        public string OldPassword { get; }
+        public string NewPassword { get; }
         public Company Company { get; }
 
-        public OpenOrderUser(int id, string username, string password, Company company)
+        public OpenOrderUser(int id, string username, string oldPassword, string newPassword, Company company)
         {
             Id = id;
             Username = username;
-            Password = password;
+            OldPassword = oldPassword;
+            NewPassword = newPassword;
             Company = company;
         }
     }
