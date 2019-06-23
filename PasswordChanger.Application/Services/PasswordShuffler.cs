@@ -55,7 +55,7 @@ namespace PasswordChanger.Application.Services
                 List<int> stringKeys = new List<int>();
                 for (int i = 0; i < _passwordLength; i++)
                 {
-                    stringKeys.Add(rand.Next(0, 51));
+                    stringKeys.Add(rand.Next(0, 100)); // 100 is an arbitrary number over the max count of characters in our arrays. Will mod this on the other side.
                 }
 
                 GenType genType = new GenType(rand.Next(1,3), stringKeys);
