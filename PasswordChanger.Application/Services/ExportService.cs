@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using PasswordChanger.Domain;
 
 namespace PasswordChanger.Application.Services
 {
@@ -34,7 +35,51 @@ namespace PasswordChanger.Application.Services
                 foreach (DataRow row in dataTable.Rows)
                 {
                     items = row.ItemArray.Select(o => QuoteValue(o?.ToString() ?? string.Empty));
-                    writer.WriteLine(String.Join(",", items));
+                    writer.WriteLine(string.Join(",", items));
+                }
+
+                writer.Flush();
+            }
+        }
+
+        /// <summary>
+        /// Creates and exports a CSV file from a DataTable.
+        /// </summary>
+        public void WriteOpenOrderUsersToCsv(IEnumerable<OpenOrderUser> openOrderUsers, string saveFilePath, bool includeHeaders)
+        {
+            if (!saveFilePath.EndsWith(".csv"))
+            {
+                return;
+            }
+
+            using (StreamWriter writer = new StreamWriter(saveFilePath))
+            {
+                if (includeHeaders)
+                {
+                    IEnumerable<string> headerValues = new HashSet<string>()
+                    {
+                        "OpenOrder User ID",
+                        "OpenOrder Username",
+                        "OpenOrder Password",
+                        "Company ID",
+                        "Company Name"
+                    };
+
+                    writer.WriteLine(string.Join(",", headerValues));
+                }
+
+                List<string> items = new List<string>();
+
+                foreach (var openOrderUser in openOrderUsers)
+                {
+                    items?.Clear();
+                    items.Add(openOrderUser.Id.ToString());
+                    items.Add(QuoteValue(openOrderUser.Username));
+                    items.Add(QuoteValue(openOrderUser.Password));
+                    items.Add(openOrderUser.Company.Id.ToString());
+                    items.Add(QuoteValue(openOrderUser.Company.Name));
+
+                    writer.WriteLine(string.Join(",", items));
                 }
 
                 writer.Flush();
