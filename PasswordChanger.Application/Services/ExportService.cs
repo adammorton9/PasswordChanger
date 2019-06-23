@@ -43,7 +43,7 @@ namespace PasswordChanger.Application.Services
         }
 
         /// <summary>
-        /// Creates and exports a CSV file from a DataTable.
+        /// Creates and exports a CSV file from a list of OpenOrderUsers.
         /// </summary>
         public void WriteOpenOrderUsersToCsv(IEnumerable<OpenOrderUser> openOrderUsers, string saveFilePath, bool includeHeaders)
         {
