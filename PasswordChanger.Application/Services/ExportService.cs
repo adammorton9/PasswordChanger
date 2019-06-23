@@ -136,11 +136,11 @@ namespace PasswordChanger.Application.Services
         {
             var openOrderUsers = new HashSet<OpenOrderUser>()
             {
-                new OpenOrderUser(1, "steve", "fef434y5hs$%^^@!", new Company(12, "Title's Title")),
-                new OpenOrderUser(2, "xxxexx", "byj6767re4#Y^W$%^^@!", new Company(13, "Adam Title")),
-                new OpenOrderUser(3, "ddddsss", "y4%Y^E%HGThym%^^@!", new Company(14, "Maarcl")),
-                new OpenOrderUser(4, "rttggg", "'';h';45';4w'h;45'", new Company(15, "Douglas Fir")),
-                new OpenOrderUser(5, "nnntrntrt", "'g4';t'3q4T%\"Y$Wh", new Company(16, "PineTree"))
+                new OpenOrderUser(1, "steve", "dumb1", "fef434y5hs$%^^@!", new Company(12, "Title's Title")),
+                new OpenOrderUser(2, "xxxexx", "dumb2", "byj6767re4#Y^W$%^^@!", new Company(13, "Adam Title")),
+                new OpenOrderUser(3, "ddddsss", "dumb3", "y4%Y^E%HGThym%^^@!", new Company(14, "Maarcl")),
+                new OpenOrderUser(4, "rttggg", "dumb4", "'';h';45';4w'h;45'", new Company(15, "Douglas Fir")),
+                new OpenOrderUser(5, "nnntrntrt", "dumb5", "'g4';t'3q4T%\"Y$Wh", new Company(16, "PineTree"))
             };
 
             var exportService = new ExportService();
