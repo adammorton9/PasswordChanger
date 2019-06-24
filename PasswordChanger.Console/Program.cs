@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using PasswordChanger.Application.Services;
 using PasswordChanger.Domain;
 
@@ -12,10 +13,11 @@ namespace PasswordChanger.ConsoleUI
         static void Main(string[] args)
         {
             Console.WriteLine("Password Changer service started...");
-
+            
             string filePath = GetFilePathForExport(args);
-
+            
             Console.WriteLine($"Exporting .csv to: {filePath}");
+            
             Console.WriteLine($"Press any key to start...");
             Console.ReadKey();
 
@@ -26,10 +28,10 @@ namespace PasswordChanger.ConsoleUI
             }
             else
             {
-                IEnumerable<OpenOrderUser> openOrderUsers = new List<OpenOrderUser>();
+                var passwordShuffler = new PasswordShuffler();
 
-                // openOrderUsers = GetOpenOrderUsers();
-
+                var openOrderUsers = passwordShuffler.Shuffle();
+                
                 var exportService = new ExportService();
 
                 try
