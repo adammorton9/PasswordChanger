@@ -13,7 +13,7 @@ namespace PasswordChanger.Domain
 
         private static char[] _numCharacters = { '2', '5', '8', '7', '1', '9', '4', '3', '6', '0' };
 
-        private static char[] _specialCharacters = { '*', '_', '[', ']', '!', '#' };
+        private static char[] _specialCharacters = { '_', '[', ']', '!', '#' };
 
         public static string GeneratePassword(GenType genType)
         {

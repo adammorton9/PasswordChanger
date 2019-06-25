@@ -8,16 +8,16 @@ namespace PasswordChanger.ConsoleUI
 {
     class Program
     {
-        private static readonly bool _isDebug = true;
+        private static readonly bool _isDebug = false;
 
         static void Main(string[] args)
         {
             Console.WriteLine("Password Changer service started...");
-            
+
             string filePath = GetFilePathForExport(args);
-            
+
             Console.WriteLine($"Exporting .csv to: {filePath}");
-            
+
             Console.WriteLine($"Press any key to start...");
             Console.ReadKey();
 
@@ -28,15 +28,17 @@ namespace PasswordChanger.ConsoleUI
             }
             else
             {
-                var passwordShuffler = new PasswordShuffler();
-
-                var openOrderUsers = passwordShuffler.Shuffle();
-                
-                var exportService = new ExportService();
-
                 try
                 {
+                    var passwordShuffler = new PasswordShuffler();
+
+                    var openOrderUsers = passwordShuffler.Shuffle();
+
+
+                    var exportService = new ExportService();
+
                     exportService.WriteOpenOrderUsersToCsv(openOrderUsers, filePath, true);
+
                 }
                 catch (Exception ex)
                 {

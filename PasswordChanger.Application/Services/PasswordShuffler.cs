@@ -35,16 +35,18 @@ namespace PasswordChanger.Application.Services
                     "o.password as Password, " +
                     "c.id as CompanyId, " +
                     "c.CompanyName as CompanyName " +
-                    "FROM openOrderUsers o " +
-                    "LEFT JOIN " +
+                    "FROM edge.dbo.openOrderUsers o " +
+                    "JOIN " +
                     "Companies c " +
-                    "ON o.companyID = c.id";
+                    "ON o.companyID = c.id " +
+                    "WHERE o.companyID NOT IN (919, 687, 1029, 1492, 583, 350, 376, 116, 351, 70, 74, 395)";
                 SqlCommand command = new SqlCommand(queryString, connection)
                 {
                     CommandType = System.Data.CommandType.Text
                 };
 
                 SqlDataReader reader = command.ExecuteReader();
+                Random rand = new Random(DateTime.Now.Second);
                 while (reader.Read())
                 {
                     users.Add(
@@ -52,7 +54,7 @@ namespace PasswordChanger.Application.Services
                             (int)reader["Id"],
                             (string)reader["Username"],
                             (string)reader["Password"],
-                            GenerateNewPassword(),
+                            GenerateNewPassword(rand),
                             new Company(
                                 (int)reader["CompanyId"],
                                 (string)reader["CompanyName"]
@@ -77,7 +79,7 @@ namespace PasswordChanger.Application.Services
 
                     // TODO: create the appropriate query string.
                     string queryString =
-                        "UPDATE openOrderUsers SET password = @newPassword WHERE openOrderUsersID = @id";
+                        "UPDATE edge.dbo.openOrderUsers SET password = @newPassword WHERE openOrderUsersID = @id";
 
                     SqlCommand command = new SqlCommand(queryString, connection)
                     {
@@ -94,18 +96,9 @@ namespace PasswordChanger.Application.Services
             }
         }
 
-        private string GenerateNewPassword()
+        public static string GenerateNewPassword(Random random)
         {
-            Random rand = new Random();
-            List<int> stringKeys = new List<int>();
-            for (int i = 0; i < PASSWORD_LENGTH; i++)
-            {
-                stringKeys.Add(rand.Next(0, 100)); // 100 is an arbitrary number over the max count of characters in our arrays. Will mod this on the other side.
-            }
-
-            GenType genType = new GenType(rand.Next(1,3), stringKeys);
-            
-            return PasswordGenerator.GeneratePassword(genType);
+            return Guid.NewGuid().ToString("d").Replace("-", "").Substring(1, 15);
         }
         
     }
